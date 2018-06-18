@@ -16,6 +16,12 @@ module.exports = {
                     type: Sequelize.STRING,
                     validate: {notEmpty: {msg: "Question must not be empty."}}
                 },
+                authorId: {
+                    type: Sequelize.INTEGER
+                },
+                topicId: {
+                    type: Sequelize.INTEGER
+                },
                 answer: {
                     type: Sequelize.STRING,
                     validate: {notEmpty: {msg: "Answer must not be empty."}}
@@ -27,6 +33,22 @@ module.exports = {
                 updatedAt: {
                     type: Sequelize.DATE,
                     allowNull: false
+                },
+                active: {
+                    type: Sequelize.BOOLEAN,
+                    defaultValue: false
+                },
+                accepted: {
+                    type: Sequelize.BOOLEAN,
+                    defaultValue: false
+                },
+                timesWrong: {
+                    type: Sequelize.INTEGER,
+                    defaultValue: 0
+                },
+                timesRight: {
+                    type: Sequelize.INTEGER,
+                    defaultValue: 0
                 }
             },
             {

@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-    up: function (queryInterface, Sequelize) {
+    up(queryInterface, Sequelize) {
         return queryInterface.createTable(
-            'tips',
+            'game',
             {
                 id: {
                     type: Sequelize.INTEGER,
@@ -12,15 +12,22 @@ module.exports = {
                     autoIncrement: true,
                     unique: true
                 },
-                quizId: {
+                active: {
+                    type: Sequelize.BOOLEAN,
+                    defaultValue: false
+                },
+                waitingUser: {
+                    type: Sequelize.BOOLEAN,
+                    defaultValue: false
+                },
+                winner: {
                     type: Sequelize.INTEGER
                 },
-                authorId: {
+                gameTypeId: {
                     type: Sequelize.INTEGER
                 },
-                text: {
-                    type: Sequelize.STRING,
-                    validate: {notEmpty: {msg: "Tip text must not be empty."}}
+                topicId: {
+                    type: Sequelize.INTEGER
                 },
                 createdAt: {
                     type: Sequelize.DATE,
@@ -29,14 +36,6 @@ module.exports = {
                 updatedAt: {
                     type: Sequelize.DATE,
                     allowNull: false
-                },
-                accepted: {
-                    type: Sequelize.BOOLEAN,
-                    defaultValue: false
-                },
-                active: {
-                    type: Sequelize.BOOLEAN,
-                    defaultValue: false
                 }
             },
             {
@@ -44,8 +43,7 @@ module.exports = {
             }
         );
     },
-
-    down: function (queryInterface, Sequelize) {
-        return queryInterface.dropTable('tips');
+    down(queryInterface, Sequelize) {
+        return queryInterface.dropTable('game');
     }
 };

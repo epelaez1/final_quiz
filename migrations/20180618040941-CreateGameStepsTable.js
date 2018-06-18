@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-    up: function (queryInterface, Sequelize) {
+    up(queryInterface, Sequelize) {
         return queryInterface.createTable(
-            'tips',
+            'gameSteps',
             {
                 id: {
                     type: Sequelize.INTEGER,
@@ -12,15 +12,26 @@ module.exports = {
                     autoIncrement: true,
                     unique: true
                 },
+                answer: {
+                    type: Sequelize.STRING,
+                    validate: {notEmpty: {msg: "Answer must not be empty."}}
+                },
+                isCorrect: {
+                    type: Sequelize.BOOLEAN,
+                    defaultValue: false
+                },
+                pending: {
+                    type: Sequelize.BOOLEAN,
+                    defaultValue: false
+                },
+                userId: {
+                    type: Sequelize.INTEGER
+                },
                 quizId: {
                     type: Sequelize.INTEGER
                 },
-                authorId: {
+                gameId: {
                     type: Sequelize.INTEGER
-                },
-                text: {
-                    type: Sequelize.STRING,
-                    validate: {notEmpty: {msg: "Tip text must not be empty."}}
                 },
                 createdAt: {
                     type: Sequelize.DATE,
@@ -29,14 +40,6 @@ module.exports = {
                 updatedAt: {
                     type: Sequelize.DATE,
                     allowNull: false
-                },
-                accepted: {
-                    type: Sequelize.BOOLEAN,
-                    defaultValue: false
-                },
-                active: {
-                    type: Sequelize.BOOLEAN,
-                    defaultValue: false
                 }
             },
             {
@@ -44,8 +47,7 @@ module.exports = {
             }
         );
     },
-
-    down: function (queryInterface, Sequelize) {
-        return queryInterface.dropTable('tips');
+    down(queryInterface, Sequelize) {
+        return queryInterface.dropTable('gameSteps');
     }
 };

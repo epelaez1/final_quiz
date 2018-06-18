@@ -22,12 +22,28 @@ module.exports = {
                     type: Sequelize.STRING,
                     validate: {notEmpty: {msg: "Password must not be empty."}}
                 },
+                name: {
+                    type: Sequelize.STRING,
+                    validate: {notEmpty: {msg: "Name must not be empty."}}
+                },
                 salt: {
                     type: Sequelize.STRING
                 },
                 isAdmin: {
                     type: Sequelize.BOOLEAN,
                     defaultValue: false
+                },
+                isModerator: {
+                    type: Sequelize.BOOLEAN,
+                    defaultValue: false
+                },
+                totalGames: {
+                    type: Sequelize.INTEGER,
+                    defaultValue: 0
+                },
+                gamesWon: {
+                    type: Sequelize.INTEGER,
+                    defaultValue: 0
                 },
                 createdAt: {
                     type: Sequelize.DATE,

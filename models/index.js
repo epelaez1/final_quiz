@@ -46,8 +46,6 @@ sequelize.import(path.join(__dirname,'session'));
 
 const {quiz, tip, attachment, user, game, gameStep, gameType, topic} = sequelize.models;
 
-tip.belongsTo(quiz);
-quiz.hasMany(tip);
 
 // Author Relations
 
@@ -59,11 +57,60 @@ user.hasMany(tip, {foreignKey: 'authorId'});
 tip.belongsTo(user, {as: 'author', foreignKey: 'authorId'});
 
 
+// Parent Relations
 
-// Relation 1-to-1 between Quiz and Attachment
+//     Relation 1 to N between Quiz and Tip
+tip.belongsTo(quiz);
+quiz.hasMany(tip);
+
+//     Relation 1-to-1 between Quiz and Attachment
 attachment.belongsTo(quiz);
 quiz.hasOne(attachment);
 
+//     Relation 1 to N between Game and GameStep
+gameStep.belongsTo(game, {as: 'match', foreignKey: 'gameId'});
+game.hasMany(gameStep, {foreignKey: 'gameId'});
+
+//     Relation N to N between User and Games:
+//         In multiplayer games a game can be related to more than
+//         one user
+user.belongsToMany(game, {
+	as: "match", 
+	through: "matches", 
+	foreignKey: "userId", 
+	otherKey: "gameId"
+});
+game.belongsToMany(user, {
+	as: "player",
+	through: "matches",
+	foreignKey : "gameId",
+	otherKey: "userId"
+});
+
+// Type Relations
+
+//     Relation 1 to N between GameType and Game
+game.belongsTo(gameType, {as: 'type', foreignKey: 'gameTypeId'});
+gameType.hasMany(game, {foreignKey: 'gameTypeId'});
+
+//     Relation 1 to N between Topic and Game
+game.belongsTo(topic, {as: 'topic', foreignKey: 'topicId'});
+topic.hasMany(game, {foreignKey: 'topicId'});
+
+//     Relation 1 to N between Topic and Game
+quiz.belongsTo(topic, {as: 'topic', foreignKey: 'topicId'});
+topic.hasMany(quiz, {foreignKey: 'topicId'});
+
+// Presence Relations
+//     Relation 1 to N between GameStep and Quiz
+gameStep.belongsTo(quiz, {as: 'quiz', foreignKey: 'quizId' });
+quiz.hasMany(gameStep, {foreignKey: 'quizId'});
+//     Relation 1 to N between User and GameStep
+gameStep.belongsTo(user, {as: 'user', foreignKey: 'userId' });
+user.hasMany(gameStep, {foreignKey: 'userId'});
+
+
+// Utility Relations
 // Relation 1-to-1 between Quiz and User:
 //    A User has many favourite quizzes.
 //    A quiz has many fans (the users who have marked it as favorite)
