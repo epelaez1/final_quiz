@@ -11,6 +11,24 @@ module.exports = function (sequelize, DataTypes) {
             answer: {
                 type: DataTypes.STRING,
                 validate: {notEmpty: {msg: "Answer must not be empty"}}
+            },
+            active: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false
+            },
+            accepted: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false
+            },
+            timesWrong: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
+            },
+            timesRight: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
             }
+
+
         });
 };

@@ -25,6 +25,22 @@ module.exports = function (sequelize, DataTypes) {
         isAdmin: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        isModerator: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        name: {
+            type: DataTypes.STRING,
+            validate: {notEmpty: {msg: "Name must not be empty."}}
+        },
+        totalGames: {
+            type: DataTypes.INTEGER,
+            default: 0
+        },
+        gamesWon : {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
         }
     });
 

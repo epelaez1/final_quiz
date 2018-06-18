@@ -1,20 +1,18 @@
-
-// Definition of the Tips model:
-
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('tip',
+    return sequelize.define('gameStep',
         {
-            text: {
+            answer: {
                 type: DataTypes.STRING,
-                validate: {notEmpty: {msg: "Tip text must not be empty."}}
+                validate: {notEmpty: {msg: "Answer must not be empty"}}
             },
-            accepted: {
+            isCorrect: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false
             },
-            active: {
+            pending: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false
             }
+
         });
 };

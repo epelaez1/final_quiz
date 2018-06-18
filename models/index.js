@@ -25,20 +25,40 @@ sequelize.import(path.join(__dirname,'user'));
 // Import the definition of the Attachments Table from attachment.js
 sequelize.import(path.join(__dirname,'attachment'));
 
+// Import the definition of the Attachments Table from game.js
+sequelize.import(path.join(__dirname,'game'));
+
+// Import the definition of the Attachments Table from gameStep.js
+sequelize.import(path.join(__dirname,'gameStep'));
+
+// Import the definition of the Attachments Table from gameType.js
+sequelize.import(path.join(__dirname,'gameType'));
+
+// Import the definition of the Attachments Table from topic.js
+sequelize.import(path.join(__dirname,'topic'));
+
+
 // Session
 sequelize.import(path.join(__dirname,'session'));
 
 
 // Relation between models
 
-const {quiz, tip, attachment, user} = sequelize.models;
+const {quiz, tip, attachment, user, game, gameStep, gameType, topic} = sequelize.models;
 
 tip.belongsTo(quiz);
 quiz.hasMany(tip);
 
-// Relation 1-to-N between User and Quiz:
+// Author Relations
+
+//     Relation 1-to-N between User and Quiz:
 user.hasMany(quiz, {foreignKey: 'authorId'});
 quiz.belongsTo(user, {as: 'author', foreignKey: 'authorId'});
+//     Relation 1-to-N between User and Tip:
+user.hasMany(tip, {foreignKey: 'authorId'});
+tip.belongsTo(user, {as: 'author', foreignKey: 'authorId'});
+
+
 
 // Relation 1-to-1 between Quiz and Attachment
 attachment.belongsTo(quiz);
