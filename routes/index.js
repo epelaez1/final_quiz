@@ -46,7 +46,7 @@ router.get([
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index');
+    res.render('index', {isIndex : true});
 });
 
 // Author page.

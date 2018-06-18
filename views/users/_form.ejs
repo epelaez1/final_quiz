@@ -19,14 +19,18 @@
 
 
 <ul>
-    <li>
         <% if ( !user.id) { %>
-        <label for="preg" class="rem">User name:</label>
-        <input type="text" id="username" name="username" value="<%= user.username %>" autocomplete="off"/>
+        <li>
+            <label for="preg" class="rem">User name:</label>
+            <input type="text" id="username" name="username" value="<%= user.username %>" autocomplete="off"/>
+        </li>
+        <li>    
+            <label for="preg" class="rem">Name:</label>
+            <input type="text" id="name" name="name" value="<%= user.name %>" autocomplete="off"/>
+        </li>
         <% } else { %>
-        Username: <%= user.username %>
+            <li>Username: <%= user.username %></li>
         <% } %>
-    </li>
 
     <li>
         <label for="user_password" class="rem">Password:</label>

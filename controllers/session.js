@@ -167,6 +167,7 @@ exports.create = (req, res, next) => {
             // I also save the moment when the session will expire due to inactivity.
             req.session.user = {
                 id: user.id,
+                name: user.name,
                 username: user.username,
                 isAdmin: user.isAdmin,
                 expires: Date.now() + maxIdleTime
