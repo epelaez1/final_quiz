@@ -1,14 +1,21 @@
 
 <div class="wideRow">
-<label for="preg"  class="itemNarrow">Question:</label>
 <input type="text" class="itemWide" id="preg" name="question" value="<%= quiz.question %>" placeholder="Question" autocomplete="off"/>
 </div>
 
+<br/>
 
 <div class="wideRow">
-<label for="resp"  class="itemNarrow">Answer:</label>
 <input type="text" class="itemWide" id="resp" name="answer" value="<%= quiz.answer %>" placeholder="Answer" autocomplete="off"/>
 </div>
+<br/>
+
+<select name="topicId" id="topicId">
+	<option value="">- Topic -</option>
+	<% for (topic of quiz.topics) {%>
+		<option value="<%= topic.id %>"><%=topic.topic%></option>
+	<% }%>
+</select>
 
 <br/>
 
@@ -16,7 +23,6 @@
 <input type="file" id="img" name="image"/>
 
 <br/>
-
 <% if (quiz.id) { %>
 <label for="img">Keep the current attached file:</label>
 <input type="checkbox" name="keepAttachment" value="1" checked>
@@ -24,6 +30,6 @@
 
 <br/>
 
-<a href="/goback"><button type="button">Cancel</button></a>
+<a href="/goback" class="button small alt">Cancel</a>
 
-<input type="submit" value="Save">
+<input class="button small" type="submit" value="Save">

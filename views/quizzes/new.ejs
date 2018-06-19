@@ -1,9 +1,14 @@
-<h1>
-    Add question:
-</h1>
+<section id="main" class="container">
+	<div class="row">
+		<section class="box">
+			<header>
+			   <h1>Add Question:</h1>
+			</header>
+			<form method="post" action="/quizzes" enctype="multipart/form-data" >
 
-<form method="post" action="/quizzes" enctype="multipart/form-data" >
+			    <% include _form.ejs %>
 
-    <% include _form.ejs %>
-
-</form>
+			</form>
+		</section>
+	</div>
+</section>

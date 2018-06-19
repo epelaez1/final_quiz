@@ -22,6 +22,7 @@ exports.load = (req, res, next, quizId) => {
         include: [
             models.tip,
             models.attachment,
+            {model: models.topic, as: 'topic'},
             {model: models.user, as: 'author'}
         ]
     };
@@ -241,30 +242,34 @@ exports.show = (req, res, next) => {
 
 // GET /quizzes/new
 exports.new = (req, res, next) => {
+    models.topic.findAll().then((topics) => {
+        const quiz = {
+            question: "",
+            answer: "",
+            topics
+        };
 
-    const quiz = {
-        question: "",
-        answer: ""
-    };
-
-    res.render('quizzes/new', {quiz});
+        res.render('quizzes/new', {quiz});
+        
+    })
 };
 
 // POST /quizzes/create
 exports.create = (req, res, next) => {
 
-    const {question, answer} = req.body;
+    const {question, answer, topicId} = req.body;
 
     const authorId = req.session.user && req.session.user.id || 0;
 
     const quiz = models.quiz.build({
         question,
         answer,
+        topicId,
         authorId
     });
 
     // Saves only the fields question and answer into the DDBB
-    quiz.save({fields: ["question", "answer", "authorId"]})
+    quiz.save({fields: ["question", "answer", "topicId","authorId"]})
     .then(quiz => {
         req.flash('success', 'Quiz created successfully.');
 
@@ -309,7 +314,7 @@ exports.create = (req, res, next) => {
 
         req.flash('error', 'There are errors in the form:');
         error.errors.forEach(({message}) => req.flash('error', message));
-        res.render('quizzes/new', {quiz});
+        res.redirect('/quizzes/new');
     })
     .catch(error => {
 

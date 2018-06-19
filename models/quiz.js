@@ -16,6 +16,10 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false
             },
+            topicId: {
+                type: DataTypes.INTEGER,
+                validate: {notEmpty: {msg: "You must select a topic for the question"}}
+            },
             accepted: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false

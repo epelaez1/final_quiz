@@ -20,7 +20,8 @@ module.exports = {
                     type: Sequelize.INTEGER
                 },
                 topicId: {
-                    type: Sequelize.INTEGER
+                    type: Sequelize.INTEGER,
+                    allowNull: false
                 },
                 answer: {
                     type: Sequelize.STRING,

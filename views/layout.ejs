@@ -10,6 +10,9 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/stylesheets/main.css" />
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/jquery.dropotron.min.js"></script>
+		<script src="/js/jquery.scrollex.min.js"></script>
 	</head>
 	<body class="is-preload">
 		<div id="page-wrapper">
@@ -28,11 +31,11 @@
 									<ul>
 											<li><a href="/users/<%= session.user.id %>">My Profile</a></li>
 											<li><a href="#">History</a></li>
-											<li><a href="#">Favourites</a></li>
+											<li><a href="/quizzes?search=&searchfavourites=1">Favourites</a></li>
 											<li><a href="/session?_method=DELETE">Log Out</a></li>
 									</ul>
 							</li>
-							<li><a href="/session?_method=DELETE" class="icon fa-sign-out"></a></li>
+							<li><a href="/session?_method=DELETE" class="icon fa-sign-out red_hover"></a></li>
 							<% } else { %>
 							<li><a href="/users/new" class="button">Sign Up</a></li>
 							<li><a href="/session" class="button">Sign In</a></li>
@@ -42,6 +45,7 @@
 				</header>
 
 			<%- body %>
+			
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">
@@ -55,9 +59,7 @@
 		</div>
 
 		<!-- Scripts -->
-			<script src="/js/jquery.min.js"></script>
-			<script src="/js/jquery.dropotron.min.js"></script>
-			<script src="/js/jquery.scrollex.min.js"></script>
+			
 			<script src="/js/browser.min.js"></script>
 			<script src="/js/breakpoints.min.js"></script>
 			<script src="/js/util.js"></script>
