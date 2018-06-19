@@ -10,6 +10,7 @@ const userController = require('../controllers/user');
 const sessionController = require('../controllers/session');
 const favouriteController = require('../controllers/favourite');
 const gameController = require('../controllers/game');
+const gameStepController = require('../controllers/gameStep');
 //-----------------------------------------------------------
 
 // autologout
@@ -64,6 +65,7 @@ router.param('quizId', quizController.load);
 router.param('userId', userController.load);
 router.param('tipId',  tipController.load);
 router.param('gameId', gameController.load)
+router.param('stepId', gameStepController.load)
 
 
 // Routes for the resource /session
@@ -168,4 +170,8 @@ router.get('/games/:gameId(\\d+)',
     sessionController.loginRequired,
     gameController.playerRequired,
     gameController.show);
+router.get('/games/:gameId(\\d+)/step/:stepId(\\d+)',
+    sessionController.loginRequired,
+    gameController.playerRequired,
+    gameStepController.checkStep);
 module.exports = router;

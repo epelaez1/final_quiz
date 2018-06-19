@@ -12,21 +12,17 @@
                                 <td>
                                     <b>Answer</b>
                                 </td>
-                                <td><b>Submit</b></td>
+                                <td><b>Result</b></td>
                             </tr>
                         </thead>
                         <% for (step of game.gameSteps) { %>
                         <% if (step.userId !== session.user.id) { continue;}%>
                         <tr>
-
                             <td>
                                 <%= step.quiz.question %>
                             </td>
 
-                            <td>
-                                <b><input type="text" name="answer_<%= step.quiz.id%>"></b>
-                            </td>
-                            <td><a href="#" class="button small alt">Submit</a></td>
+                            <% include _result.ejs %>
                         <% } %>
                     </table>
                      

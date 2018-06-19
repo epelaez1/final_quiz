@@ -76,7 +76,7 @@ const findOnePendingGame = (userId) => {
     		waitingUser : true
     	},
     	include : [
-	    {model: models.gameStep, include: [models.quiz]},
+	    {model: models.gameStep, include: [{model: models.quiz, as : "quiz"}]},,
         {model: models.topic, as: 'topic'},
         {model: models.gameType, as: 'type'},
     	{
@@ -218,3 +218,4 @@ exports.show = (req, res, next) => {
 		res.render("games/show", {game})	
 	}
 }
+

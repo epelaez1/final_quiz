@@ -1,0 +1,45 @@
+<% if (step.pending) { -%>
+	<td id="user_answer_<%= step.quiz.id%>">
+	    <b><input id="answer_<%= step.quiz.id%>" type="text"  name="answer_<%= step.quiz.id%>"></b>
+	</td>
+	<td><a href="#"  id="button_<%= step.quiz.id%>" class="button small alt">Submit</a></td>
+
+<script>
+    (function() {
+
+        var button = $("#button_<%= step.quiz.id%>");
+        var row = $("#user_answer_<%= step.quiz.id%>")
+        button.click( function() {
+            var request = new XMLHttpRequest();
+            var answer = $("#answer_<%= step.quiz.id%>").val()
+            var url = "/games/<%= step.gameId%>/step/<%=step.id%>?answer=" + answer;
+            url = encodeURI(url)
+            console.log(url)
+            request.open("GET", url);
+            request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    button.html("");
+                    button.toggleClass("button");
+                    button.toggleClass("green");
+                    button.toggleClass("icon fa-check");
+                    row.html("<b>" + answer + "</b>")
+                } else {
+                	button.html("");
+                    button.toggleClass("button");
+                    button.toggleClass("red");
+                    button.toggleClass("icon fa-remove");
+                    row.html("<b>" + answer + "</b>")
+                }
+            };
+            request.send();
+            return false;
+        })
+    })();
+</script>
+
+<% } else { -%>
+	<td><b><%= step.answer %></b></td>
+	<% var icon = step.isCorrect? "check green" : "remove red"%>
+	<td><a href="#" class="icon fa-<%= icon %>"></a></td>
+<% } -%>
