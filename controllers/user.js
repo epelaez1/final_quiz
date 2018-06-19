@@ -68,8 +68,11 @@ exports.new = (req, res, next) => {
         name: "",
         password: ""
     };
-
-    res.render('users/new', {user});
+    if (req.session.user && !req.session.user.isAdmin) {
+        res.redirect("/")
+    } else {
+        res.render('users/new', {user});
+    }
 };
 
 

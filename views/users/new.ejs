@@ -1,7 +1,13 @@
-<h1>
-    Create user:
-</h1>
+<section id="main" class="container">
+	<div class="row">
+		<section class="box">
+			<header>
+			   <h1>Create User:</h1>
+			</header>
+			<form method="post" action="/users">
+			    <% include _form.ejs %>
+			</form>
 
-<form method="post" action="/users">
-    <% include _form.ejs %>
-</form>
+		</section>
+	</div>
+</section>

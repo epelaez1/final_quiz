@@ -21,33 +21,28 @@
 <ul>
         <% if ( !user.id) { %>
         <li>
-            <label for="preg" class="rem">User name:</label>
-            <input type="text" id="username" name="username" value="<%= user.username %>" autocomplete="off"/>
+            <input type="text" id="username" placeholder="Username" name="username" value="<%= user.username %>" autocomplete="off"/>
         </li>
         <li>    
-            <label for="preg" class="rem">Name:</label>
-            <input type="text" id="name" name="name" value="<%= user.name %>" autocomplete="off"/>
+            <input type="text" id="name" name="name" placeholder="Name" value="<%= user.name %>" autocomplete="off"/>
         </li>
         <% } else { %>
-            <li>Username: <%= user.username %></li>
+            <li><b>Username: <%= user.username %></b></li>
         <% } %>
 
     <li>
-        <label for="user_password" class="rem">Password:</label>
-        <input type="password" id="user_password" name="password" autocomplete="off"/>
+        <input type="password" id="user_password" placeholder="Password" name="password" autocomplete="off"/>
     </li>
 
     <li>
-        <label for="user_confirm_password" class="rem">Confirm Password:</label>
-        <input type="password" id="user_confirm_password" autocomplete="off"/>
+        <label for="user_confirm_password" class="rem"></label>
+        <input type="password"  id="user_confirm_password" placeholder="Confirm Password" autocomplete="off"/>
 
     </li>
 </ul>
 
 <div>
-    <a href="/goback"><button type="button">Cancel</button></a>
+    <a href="/goback" class="button small alt">Cancel</a>
+    <input class="button small" type="submit" value="Save" onclick="return confirmPassword()">
 </div>
 
-<div>
-    <input type="submit" value="Save" onclick="return confirmPassword()">
-</div>

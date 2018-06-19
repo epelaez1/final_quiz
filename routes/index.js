@@ -46,7 +46,11 @@ router.get([
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    res.render('index', {isIndex : true});
+    if (req.session.user){
+        res.redirect(/users/+req.session.user.id)
+    } else{
+        res.render('index');
+    }
 });
 
 // Author page.

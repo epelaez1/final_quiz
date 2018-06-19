@@ -141,7 +141,6 @@ exports.new = (req, res, next) => {
 
     // Page to go/show after login:
     let redir = req.query.redir || url.parse(req.headers.referer || "/").path;
-
     // Do not go here, i.e. do not shown the login form again.
     if (redir === '/session') {
         redir = "/";
@@ -154,8 +153,8 @@ exports.new = (req, res, next) => {
 // POST /session   -- Create the session if the user authenticates successfully
 exports.create = (req, res, next) => {
 
-    const redir = req.body.redir || '/'
-
+    let redir = req.body.redir || '/'
+    redir = redir === "/users/new" ? "/" : redir
     const login     = req.body.login;
     const password  = req.body.password;
 
@@ -191,5 +190,5 @@ exports.destroy = (req, res, next) => {
 
     delete req.session.user;
 
-    res.redirect("/session"); // redirect to login gage
+    res.redirect("/"); // redirect to login gage
 };
