@@ -75,13 +75,13 @@ game.hasMany(gameStep, {foreignKey: 'gameId'});
 //         In multiplayer games a game can be related to more than
 //         one user
 user.belongsToMany(game, {
-	as: "match", 
+	as: "game", 
 	through: "matches", 
 	foreignKey: "userId", 
 	otherKey: "gameId"
 });
 game.belongsToMany(user, {
-	as: "player",
+	as: "players",
 	through: "matches",
 	foreignKey : "gameId",
 	otherKey: "userId"

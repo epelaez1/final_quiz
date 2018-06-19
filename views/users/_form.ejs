@@ -4,8 +4,8 @@
         var pw2 = document.getElementById('user_confirm_password').value;
 
         if (!pw1 || !pw2) {
-            alert('Password and Confirmation fields must be filled in.');
-            return false;
+            
+            return true;
         }
 
         if (pw1 === pw2) {
@@ -19,26 +19,21 @@
 
 
 <ul>
+            <br>
         <% if ( !user.id) { %>
-        <li>
             <input type="text" id="username" placeholder="Username" name="username" value="<%= user.username %>" autocomplete="off"/>
-        </li>
-        <li>    
-            <input type="text" id="name" name="name" placeholder="Name" value="<%= user.name %>" autocomplete="off"/>
-        </li>
+            <br>
         <% } else { %>
             <li><b>Username: <%= user.username %></b></li>
+            <label for="name">Name:</label>
         <% } %>
-
-    <li>
+        <input type="text" id="name" name="name" placeholder="Name" value="<%= user.name %>" autocomplete="off"/>
+        <br>
         <input type="password" id="user_password" placeholder="Password" name="password" autocomplete="off"/>
-    </li>
-
-    <li>
-        <label for="user_confirm_password" class="rem"></label>
+        <br>
         <input type="password"  id="user_confirm_password" placeholder="Confirm Password" autocomplete="off"/>
 
-    </li>
+    
 </ul>
 
 <div>

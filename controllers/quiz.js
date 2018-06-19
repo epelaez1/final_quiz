@@ -1,11 +1,11 @@
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const {models} = require("../models");
+const paginate = require('../helpers/paginate').paginate;
 const cloudinary = require('cloudinary');
 const fs = require('fs');
 const attHelper = require("../helpers/attachments");
 
-const paginate = require('../helpers/paginate').paginate;
 
 // Optios for the files uploaded to Cloudinary
 const cloudinary_upload_options = {

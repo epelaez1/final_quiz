@@ -3,7 +3,7 @@
 module.exports = {
     up(queryInterface, Sequelize) {
         return queryInterface.createTable(
-            'game',
+            'games',
             {
                 id: {
                     type: Sequelize.INTEGER,
@@ -14,7 +14,7 @@ module.exports = {
                 },
                 active: {
                     type: Sequelize.BOOLEAN,
-                    defaultValue: false
+                    defaultValue: true
                 },
                 waitingUser: {
                     type: Sequelize.BOOLEAN,

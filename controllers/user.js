@@ -75,7 +75,6 @@ exports.new = (req, res, next) => {
     }
 };
 
-
 // POST /users
 exports.create = (req, res, next) => {
 
@@ -110,6 +109,7 @@ exports.create = (req, res, next) => {
 };
 
 
+
 // GET /users/:userId/edit
 exports.edit = (req, res, next) => {
 
@@ -123,19 +123,28 @@ exports.edit = (req, res, next) => {
 exports.update = (req, res, next) => {
 
     const {user, body} = req;
-
+    let fields = []
     // user.username  = body.user.username; // edition not allowed
-    user.password = body.password;
-
-    // Password can not be empty
-    if (!body.password) {
-        req.flash('error', "Password field must be filled in.");
+    if (!body.name && !body.password){
+        req.flash('error', "No changes made");
         return res.render('users/edit', {user});
     }
+    if (!!body.name){
+        user.name = body.name
+        fields.push("name")
+    }
+    if (!!body.password){
+        user.password = body.password;
+        fields.push("password")
+        fields.push("salt")
+    }
 
-    user.save({fields: ["password", "salt"]})
+    user.save({fields})
     .then(user => {
         req.flash('success', 'User updated successfully.');
+        if (req.session.user.id === user.id){
+            req.session.user = user;
+        }
         res.redirect('/users/' + user.id);
     })
     .catch(Sequelize.ValidationError, error => {

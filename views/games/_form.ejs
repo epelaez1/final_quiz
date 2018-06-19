@@ -1,0 +1,16 @@
+<% for (gameMode of game.gameModes) {%>
+<div class="col-4 col-12-narrower">
+	<input id="gameMode<%= gameMode.id%>" type="radio" name="gameTypeId" value="<%= gameMode.id%>">
+	<label for="gameMode<%= gameMode.id%>"><%= gameMode.type%></label>
+	<br>
+</div>
+<%}%>	     
+<select name="topicId" id="topicId">
+	<option value="">- Topic -</option>
+	<% for (topic of game.topics) {%>
+		<option value="<%= topic.id %>"><%=topic.topic%></option>
+	<% }%>
+</select>
+<br>
+<br>
+<input class="button small" type="submit" value="Play">

@@ -61,10 +61,10 @@
                                 <b><%= quiz.topic.topic %></b>
                             </td>
                             <td>
+                                <a  class="icon fa-eye grey blue_hover" href="/quizzes/<%= quiz.id %>"></a>
                                 <% if (session.user) { %>
                                     <% include ../favourites/_stars.ejs %>
                                     <% if (session.user.isAdmin || session.user.id === quiz.authorId) { %>
-                                            <a  class="icon fa-eye grey blue_hover" href="/quizzes/<%= quiz.id %>"></a>
 
                                             <a class="icon fa-pencil grey blue_hover" href="/quizzes/<%= quiz.id %>/edit"></a>
 
@@ -85,7 +85,7 @@
                     <% } %>
                 </div>
                 <% if (session.user) { %>
-                    <a href="/quizzes/new"><button type="button">Create New Question</button></a>
+                    <a class="button fit small alt" href="/quizzes/new">Create New Question</a>
                 <% } %>
             </section>
         </div>

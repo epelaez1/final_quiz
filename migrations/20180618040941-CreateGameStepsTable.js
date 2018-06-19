@@ -22,7 +22,7 @@ module.exports = {
                 },
                 pending: {
                     type: Sequelize.BOOLEAN,
-                    defaultValue: false
+                    defaultValue: true
                 },
                 userId: {
                     type: Sequelize.INTEGER

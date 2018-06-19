@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
         {
             active: {
                 type: DataTypes.BOOLEAN,
-                defaultValue: false
+                defaultValue: true
             },
             waitingUser: {
                 type: DataTypes.BOOLEAN,

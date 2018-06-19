@@ -1,0 +1,38 @@
+<section id="main" class="container">
+    <div class="row">
+        <div class="col-12">
+            <section class="box">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>
+                                    <b>Question</b>
+                                </td>
+                                <td>
+                                    <b>Answer</b>
+                                </td>
+                                <td><b>Submit</b></td>
+                            </tr>
+                        </thead>
+                        <% for (step of game.gameSteps) { %>
+                        <% if (step.userId !== session.user.id) { continue;}%>
+                        <tr>
+
+                            <td>
+                                <%= step.quiz.question %>
+                            </td>
+
+                            <td>
+                                <b><input type="text" name="answer_<%= step.quiz.id%>"></b>
+                            </td>
+                            <td><a href="#" class="button small alt">Submit</a></td>
+                        <% } %>
+                    </table>
+                     
+                </div>
+                
+            </section>
+        </div>
+    </div>
+</section>
