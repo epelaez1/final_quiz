@@ -41,14 +41,14 @@
                                     <a class="icon fa-check" href="#"></a>
                                 <%  } %>
                             </td>
-                            <% if (session.user.isAdmin && session.user.id !== users[i].id) { %>
                                 <td>
-                                    <a class="button small alt" href="/users/<%= users[i].id %>?_method=DELETE"
-                                       onClick="return confirm('Delete user: <%= users[i].username %>');">
-                                        Delete
-                                    </a>
+                                <% if (session.user.isAdmin && session.user.id !== users[i].id) { %>
+                                        <a class="button small alt" href="/users/<%= users[i].id %>?_method=DELETE"
+                                           onClick="return confirm('Delete user: <%= users[i].username %>');">
+                                            Delete
+                                        </a>
+                                <%  } %>
                                 </td>
-                            <%  } %>
 
                         <% } %>
 

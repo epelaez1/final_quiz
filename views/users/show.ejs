@@ -1,24 +1,24 @@
 <section id="main" class="container">
     <section class="box">
         <div class="row">
-                <div class="col-6 col-12-mobilep">
+                <div class="col-5 col-12-mobilep">
 
                     <!-- Text -->
                     <h3><%= user.isAdmin ? "Welcome back" : "" %> <b> <%= user.name %>
                         <% if (user.isAdmin) {%>
-                            <a href="#" class="icon fa-check"><span class="label">Admin Verified</span></a>
+                            <a href="#" class="icon fa-check blue"><span class="label">Admin Verified</span></a>
                         <% } %>
                         </b></h3>
 
                 </div>
-                <div class="col-6 col-12-mobilep">
+                <div class="col-7 col-12-mobilep">
 
                     <ul class="actions small">
                     <% if (session.user.isAdmin || session.user.id === user.id) { %>
                         <li><a href="/users/<%= user.id %>/edit" class="button small alt">Edit Profile</a></li>
                     <% } %>
-                    <li><a href="#" class="button small right">My Quizzes</a></li>
-                    <li><a href="#" class="button small right">Favourites</a></li>
+                    <li><a href="/users/<%= user.id %>/quizzes" class="button small right">My Quizzes</a></li>
+                    <li><a href="/users/<%= user.id %>/quizzes?&searchfavourites=1" class="button small right">Favourites</a></li>
                     <% if (session.user.isAdmin && session.user.id !== user.id) { %>
                         <li><a href="/users/<%= user.id %>?_method=DELETE" class="button small right" onClick="return confirm('Delete user: <%= user.username %>');">Delete</a></li>
                     <% } %>

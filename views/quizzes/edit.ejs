@@ -1,8 +1,13 @@
+<section id="main" class="container">
+	<div class="row">
+		<section class="box">
+			<header>
+			   <h1>Edit Question:</h1>
+			</header>
 
-<h1>
-    Edit question:
-</h1>
-
-<form method="post" action="/quizzes/<%= quiz.id %>?_method=PUT" enctype="multipart/form-data" >
-    <% include _form.ejs %>
-</form>
+			<form method="post" action="/quizzes/<%= quiz.id %>?_method=PUT" enctype="multipart/form-data" >
+			    <% include _form.ejs %>
+			</form>
+		</section>
+	</div>
+</section>

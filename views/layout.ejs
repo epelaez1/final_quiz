@@ -22,10 +22,12 @@
 					<h1><a href="/">Quizzy</a></h1>
 					<nav id="nav">
 						<ul>
+							
 							<% if (!!session.user) { %>
 							<li>
 								<a href="#" class="button bold">New Game</a>
 							</li>
+
 							<li>
 								<a href="#" class="icon fa-angle-down"><%= session.user.name %></a>
 									<ul>
@@ -35,15 +37,77 @@
 											<li><a href="/session?_method=DELETE">Log Out</a></li>
 									</ul>
 							</li>
+							<li>
+									<a href="#" class="icon fa-reorder"></a>
+										<ul>
+											<% if (!!session.user) { %>
+											<li><a href="/users/">Usuarios</a></li>
+											<%}%>
+											<li><a href="/quizzes/">Quizzes</a></li>
+										</ul>
+								</li>
 							<li><a href="/session?_method=DELETE" class="icon fa-sign-out red_hover"></a></li>
+							
 							<% } else { %>
 							<li><a href="/users/new" class="button">Sign Up</a></li>
 							<li><a href="/session" class="button">Sign In</a></li>
+							<li>
+								<a href="#" class="icon fa-reorder"></a>
+									<ul>
+										<% if (!!session.user) { %>
+										<li><a href="/users/">Usuarios</a></li>
+										<%}%>
+										<li><a href="/quizzes/">Quizzes</a></li>
+									</ul>
+							</li>
+							</ul>
 							<% } %>
 						</ul>
 					</nav>
 				</header>
+			<% if (messages.info) { %>
+				<section class="container" id="main">
+				<section class="box">
+					<header class="major">
+				        <article id='flashinfo'>
+				            <h3>Information of interest:</h3>
+				                <% for (var i in messages.info) { %>
+				                <%= messages.info[i] %> <br>
+				                <% } %>
+				        </article>
+				    </header>
+				</section>
+				</section>
+	        <% } %>
 
+	        <% if (messages.success) { %>
+				<section class="container" id="main">
+				<section class="box">
+					<header class="major">
+				        <article id='flashsuccess'>
+				            <h3>Tasks completed successfully:</h3>
+				                <% for (var i in messages.success) { %>
+				                <%= messages.success[i] %> <br>
+				                <% } %>
+				        </article>
+				    </header>
+				</section>
+	        <% } %>
+
+	        <% if (messages.error) { %>
+				<section class="container" id="main">
+				<section class="box">
+					<header class="major">
+				        <article id='flasherror'>
+				            <h3>Errors:</h3>
+				                <% for (var i in messages.error) { %>
+				                <%= messages.error[i] %> <br>
+				                <% } %>
+				        </article>
+				    </header>
+				</section>
+		        	
+	        <% } %>
 			<%- body %>
 			
 			<!-- Footer -->

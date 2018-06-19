@@ -87,23 +87,25 @@ exports.index = (req, res, next) => {
     }
 
     // If there exists "req.user", then only the quizzes of that user are shown
-    if (req.user) {
+    if (req.user && !searchfavourites) {
         countOptions.where.authorId = req.user.id;
-
+    }
+    if (req.user){
         if (req.session.user && req.session.user.id == req.user.id) {
-            title = "My Questions";
+            title = searchfavourites ? "My favourite questions" : "My Questions";
         } else {
-            title = "Questions of " + req.user.username;
+            title = searchfavourites? "Favourite questions of "  + req.user.username : "Questions made by " + req.user.username;
         }
     }
 
     // Filter: my favourite quizzes:
     if (req.session.user) {
         if (searchfavourites) {
+            const userId = req.user ? req.user.id : req.session.user.id
             countOptions.include.push({
                 model: models.user,
                 as: "fans",
-                where: {id: req.session.user.id},
+                where: {id: userId},
                 attributes: ['id']
 
             });
@@ -150,7 +152,10 @@ exports.index = (req, res, next) => {
             model: models.user,
             as: 'author'
         });
-
+        findOptions.include.push({
+            model: models.topic,
+            as: 'topic'
+        });
         return models.quiz.findAll(findOptions);
     })
     .then(quizzes => {
@@ -240,19 +245,6 @@ exports.show = (req, res, next) => {
 };
 
 
-// GET /quizzes/new
-exports.new = (req, res, next) => {
-    models.topic.findAll().then((topics) => {
-        const quiz = {
-            question: "",
-            answer: "",
-            topics
-        };
-
-        res.render('quizzes/new', {quiz});
-        
-    })
-};
 
 // POST /quizzes/create
 exports.create = (req, res, next) => {
@@ -324,12 +316,27 @@ exports.create = (req, res, next) => {
 };
 
 
+// GET /quizzes/new
+exports.new = (req, res, next) => {
+    models.topic.findAll().then((topics) => {
+        const quiz = {
+            question: "",
+            answer: "",
+            topicId: 0,
+            topics
+        };
+
+        res.render('quizzes/new', {quiz});
+        
+    })
+};
 // GET /quizzes/:quizId/edit
 exports.edit = (req, res, next) => {
-
-    const {quiz} = req;
-
+    models.topic.findAll().then((topics) => {
+        const {quiz} = req;
+        quiz.topics = topics
     res.render('quizzes/edit', {quiz});
+    })
 };
 
 

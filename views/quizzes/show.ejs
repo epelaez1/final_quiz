@@ -1,7 +1,9 @@
-
-<h1>
-    Show question:
-</h1>
+<section id="main" class="container">
+    <div class="row">
+        <section class="box">
+            <header>
+               <h1>Show Question:</h1>
+            </header>
 
 <div class="quizItem">
 
@@ -20,28 +22,32 @@
         <br />
         Answer: <b><%= quiz.answer %></b>
         <br />
-        <small> by <%= quiz.author ? quiz.author.username : "Anonymous" %> </small>
+        <small> by <b><%= quiz.author ? quiz.author.username : "Anonymous" %> </b></small>
     </div>
 
 </div>
 
 
-<a href="/goback"><button>Go back</button></a>
 
 
-<h1>
-    Tips:
-</h1>
 
-<% if (session.user) { %>
-    <% include ../tips/new %>
-<% } %>
+    <h1>
+        Tips:
+    </h1>
 
-<% var tips = quiz.tips; %>
-<% var quizId = quiz.id; %>
-<% var quizAuthorId = quiz.authorId; %>
+    <% if (session.user) { %>
+        <% include ../tips/new %>
+    <% } %>
 
-<% include ../tips/index %>
+    <% var tips = quiz.tips; %>
+    <% var quizId = quiz.id; %>
+    <% var quizAuthorId = quiz.authorId; %>
+
+    <% include ../tips/index %>
 
 
-<a href="/quizzes"><button>Go back</button></a>
+
+
+        </section>
+    </div>
+</section>
