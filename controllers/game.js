@@ -54,11 +54,12 @@ const createNewGame = (gameTypeId, topicId) => {
     });
 	return game.save({fields: ["waitingUser","gameTypeId", "topicId"]})
 }
-const countPendingMultiplayerGames = (userId) => {
+const countPendingMultiplayerGames = (userId, topicId) => {
 	let countOptions = {
     	where:{
     		gameTypeId : 3,
-    		waitingUser : true
+    		waitingUser : true,
+    		topicId
     	},
     	include : [{
 	        model: models.user,
@@ -69,29 +70,32 @@ const countPendingMultiplayerGames = (userId) => {
     }
     return models.game.count(countOptions)
 }
-const findOnePendingGame = (userId) => {
+const findOnePendingGame = (userId, topicId) => {
 	let options = {
     	where:{
     		gameTypeId : 3,
-    		waitingUser : true
+    		waitingUser : true,
+    		topicId
     	},
     	include : [
-	    {model: models.gameStep, include: [{model: models.quiz, as : "quiz"}]},,
-        {model: models.topic, as: 'topic'},
-        {model: models.gameType, as: 'type'},
-    	{
-	        model: models.user,
-	        as: "players",
-	        where: {id: {[Op.ne]: userId}}
-	    }
+		    {model: models.gameStep, include: [{model: models.quiz, as : "quiz"}]},
+	        {model: models.topic, as: 'topic'},
+	        {model: models.gameType, as: 'type'},
+	    	{
+		        model: models.user,
+		        as: "players",
+		        where: {id: {[Op.ne]: userId}}
+		    }
 	    ]
     }
     return models.game.findOne(options)	
 }
 const addUserToGame = (game, userId) => {
 	game.waitingUser = false
+	console.log("Changing waiting user")
 	return game.save({fields: ["waitingUser"]})
 	.then((game)=>{
+		console.log("changin user id of steps")
 		game.gameSteps.forEach((gameStep) => {
 			if  (gameStep.userId === 0 ){
 				gameStep.userId = userId;
@@ -138,14 +142,17 @@ exports.create = (req, res, next) => {
     gameTypeId = parseInt(gameTypeId)
     topicId = parseInt(topicId)
     if (gameTypeId === 3){
-    	countPendingMultiplayerGames(req.session.user.id)
+    	countPendingMultiplayerGames(req.session.user.id, topicId)
     	.then((count)=>{
     		if (count > 0){
-    			return findOnePendingGame(req.session.user.id)
+    			console.log("Finding game");
+    			return findOnePendingGame(req.session.user.id, topicId)
     			.then((game) => {
+    				console.log("Adding user to game")
     				return addUserToGame(game, req.session.user.id)
     			})
 				.then((game) => {
+					console.log("Adding Player match")
 					game.addPlayer(req.session.user.id).then(() => {
 						res.redirect('/games/' + game.id);
 					})

@@ -5,8 +5,19 @@ const paginate = require('../helpers/paginate').paginate;
 
 // Autoload the user with id equals to :userId
 exports.load = (req, res, next, userId) => {
-
-    models.user.findById(userId)
+    const options = {
+        include: [
+            {
+                model: models.game,
+                as : "games",
+                include : [ 
+                    {model: models.topic , as :"topic"},
+                    {model: models.gameType , as :"type"}
+                ]
+            }
+        ]
+    };
+    models.user.findById(userId, options)
     .then(user => {
         if (user) {
             req.user = user;
